@@ -1,14 +1,23 @@
-import React from 'react';
-
+import React, { useState } from 'react';
+import { FiEye,FiEyeOff } from "react-icons/fi";
 import Logo from '../../olx-logo.png';
 import './Login.css';
 
 function Login() {
+  const [show,setShow] = useState(true)
+
+  const handleLogin =(e)=>{
+    e.preventDefault()
+  }
+  const showorhidepassword =()=>{
+    setShow(!show)
+  }
+
   return (
     <div>
       <div className="loginParentDiv">
         <img width="200px" height="200px" src={Logo}></img>
-        <form>
+        <form onSubmit={handleLogin}>
           <label htmlFor="fname">Email</label>
           <br />
           <input
@@ -22,12 +31,15 @@ function Login() {
           <label htmlFor="lname">Password</label>
           <br />
           <input
-            className="input"
-            type="password"
+            className=" input"
+            type={show?"password":"text"}
             id="lname"
             name="password"
             defaultValue="Doe"
           />
+          <div onClick={showorhidepassword} className="showorhide">
+           {show? <FiEyeOff/>:<FiEye/>}
+          </div>
           <br />
           <br />
           <button>Login</button>

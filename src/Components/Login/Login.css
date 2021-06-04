@@ -15,6 +15,7 @@
     border-right-color: transparent;
     outline-color: transparent;
   }
+
   
   .loginParentDiv button {
     width: 100%;
@@ -35,4 +36,15 @@
     justify-content: center;
     cursor: pointer;
   }
-  
+  .showorhide{
+    position: absolute;
+    bottom: 76px;
+    right: 10px;
+    background-color: white;
+    cursor: pointer;
+    z-index: 3;
+    padding-left: 5px;
+  }
+  form{
+    position: relative;
+  }
