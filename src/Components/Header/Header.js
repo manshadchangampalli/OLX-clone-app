@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useContext } from 'react';
 
 import './Header.css';
 import OlxLogo from '../../assets/OlxLogo';
@@ -6,7 +6,9 @@ import Search from '../../assets/Search';
 import Arrow from '../../assets/Arrow';
 import SellButton from '../../assets/SellButton';
 import SellButtonPlus from '../../assets/SellButtonPlus';
+import { AuthContext } from '../../Firebase/context/FirebaseContext';
 function Header() {
+  const {user}  = useContext(AuthContext)
   return (
     <div className="headerParentDiv">
       <div className="headerChildDiv">
@@ -34,8 +36,10 @@ function Header() {
           <Arrow></Arrow>
         </div>
         <div className="loginPage">
-          <span>Login</span>
+        welcome <span className='username'>{user?   user.displayName:"Login"}</span> 
           <hr />
+          {user?<span className="logout">Logout</span>:null}
+          
         </div>
 
         <div className="sellMenu">

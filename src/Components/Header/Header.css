@@ -12,7 +12,15 @@
   justify-content: space-between;
   align-items: center;
 }
-
+.username{
+  color: #3a77ff;
+  font-weight: 600;
+  font-size: 20px;
+}
+.logout{
+  color: red;
+  text-align: center;
+}
 .placeSearch {
   width: 16em;
   height: 48px;
