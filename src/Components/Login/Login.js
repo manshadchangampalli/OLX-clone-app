@@ -1,17 +1,31 @@
-import React, { useState } from 'react';
-import { FiEye,FiEyeOff } from "react-icons/fi";
-import Logo from '../../olx-logo.png';
-import './Login.css';
+import {FirebaseContext} from '../../Firebase/context/FirebaseContext'
+import React, { useContext, useState } from "react";
+import { FiEye, FiEyeOff } from "react-icons/fi";
+import { useHistory } from "react-router";
+import Logo from "../../olx-logo.png";
+import "./Login.css";
 
 function Login() {
-  const [show,setShow] = useState(true)
-
-  const handleLogin =(e)=>{
-    e.preventDefault()
-  }
-  const showorhidepassword =()=>{
-    setShow(!show)
-  }
+  const [show, setShow] = useState(true);
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const History = useHistory(); 
+  const {firebase} = useContext(FirebaseContext)
+  const handleLogin = (e) => {
+    e.preventDefault();
+    firebase
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .then(() => {
+        History.push('/')
+      });
+  };
+  const showorhidepassword = () => {
+    setTimeout(() => {
+      setShow(true);
+    }, 2000);
+    setShow(!show);
+  };
 
   return (
     <div>
@@ -24,6 +38,8 @@ function Login() {
             className="input"
             type="email"
             id="fname"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
             name="email"
             defaultValue="John"
           />
@@ -32,13 +48,15 @@ function Login() {
           <br />
           <input
             className=" input"
-            type={show?"password":"text"}
+            type={show ? "password" : "text"}
             id="lname"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
             name="password"
             defaultValue="Doe"
           />
           <div onClick={showorhidepassword} className="showorhide">
-           {show? <FiEyeOff/>:<FiEye/>}
+            {show ? <FiEyeOff /> : <FiEye />}
           </div>
           <br />
           <br />
