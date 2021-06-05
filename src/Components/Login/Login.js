@@ -9,6 +9,7 @@ function Login() {
   const [show, setShow] = useState(true);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [error,setError] =useState("")
   const History = useHistory(); 
   const {firebase} = useContext(FirebaseContext)
   const handleLogin = (e) => {
@@ -18,7 +19,9 @@ function Login() {
       .signInWithEmailAndPassword(email, password)
       .then(() => {
         History.push('/')
-      });
+      }).catch((err)=>{
+        setError(err.message)
+      })
   };
   const showorhidepassword = () => {
     setTimeout(() => {
@@ -31,12 +34,14 @@ function Login() {
     <div>
       <div className="loginParentDiv">
         <img width="200px" height="200px" src={Logo}></img>
+        <p style={{color:"red",maxWidth:"200px"}} >{error}</p>
         <form onSubmit={handleLogin}>
           <label htmlFor="fname">Email</label>
           <br />
           <input
             className="input"
             type="email"
+            required
             id="fname"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -50,6 +55,7 @@ function Login() {
             className=" input"
             type={show ? "password" : "text"}
             id="lname"
+            required  
             value={password}
             onChange={(e) => setPassword(e.target.value)}
             name="password"
